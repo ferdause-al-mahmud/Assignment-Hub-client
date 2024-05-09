@@ -4,10 +4,13 @@ import Footer from "./Shared/Footer";
 
 const MainLayout = () => {
     return (
-        <div className="flex flex-col min-h-screen font-montserrat">
+        <div className="flex  flex-col min-h-screen font-montserrat">
             <div className="flex-grow">
-                <div className="max-w-7xl  mx-auto">
+                <div className=" bg-base-200">
                     <Navbar />
+
+                </div>
+                <div className="max-w-7xl  mx-auto">
                     <Outlet />
                 </div>
             </div>
