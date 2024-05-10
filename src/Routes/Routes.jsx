@@ -9,6 +9,7 @@ import Register from "../Pages/Register";
 import Assignments from "../PublicComponents/Assignments";
 import CreateAssignments from "../PrivateComponents/CreateAssignments";
 import PendingAssignment from "../PrivateComponents/PendingAssignment";
+import PrivateRoute from "../PrivateComponents/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -34,11 +35,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/create",
-                element: <CreateAssignments></CreateAssignments>
+                element: <PrivateRoute><CreateAssignments></CreateAssignments></PrivateRoute>
             },
             {
                 path: "/pending",
-                element: <PendingAssignment></PendingAssignment>
+                element: <PrivateRoute><PendingAssignment></PendingAssignment></PrivateRoute>
             },
         ]
     },
