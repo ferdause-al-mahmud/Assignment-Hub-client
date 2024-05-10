@@ -4,8 +4,8 @@ import {
 } from "react-router-dom";
 import MainLayout from "../MainLayout";
 import Homepage from "../Pages/Homepage/Homepage";
-import Login from "../PublicComponents/Login";
-import Register from "../PublicComponents/Register";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
 import Assignments from "../PublicComponents/Assignments";
 import CreateAssignments from "../PrivateComponents/CreateAssignments";
 import PendingAssignment from "../PrivateComponents/PendingAssignment";

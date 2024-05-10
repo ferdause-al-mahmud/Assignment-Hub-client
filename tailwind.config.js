@@ -6,13 +6,18 @@ export default {
   ],
 
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'login-bg': "url('/re13.jpg')",
+        'login-side-bg': "url('/public/3254139.jpg')",
+      }
+    },
   },
   plugins: [
     require('daisyui'),
   ],
   daisyui: {
-    themes: ["light", "dark"],
+    themes: ["light", "dracula", "dim"],
   },
 }
 
