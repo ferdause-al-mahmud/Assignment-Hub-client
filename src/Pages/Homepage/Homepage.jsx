@@ -1,8 +1,13 @@
+import Banner from "../../PublicComponents/Banner";
+import FaqSection from "../../PublicComponents/FaqSection";
+import Feature from "../../PublicComponents/Feature";
 
 const Homepage = () => {
     return (
         <div>
-            <p>this is home</p>
+            <Banner></Banner>
+            <Feature></Feature>
+            <FaqSection></FaqSection>
         </div>
     );
 };

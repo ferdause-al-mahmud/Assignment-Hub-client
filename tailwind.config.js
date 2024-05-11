@@ -8,8 +8,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'login-bg': "url('/re13.jpg')",
-        'login-side-bg': "url('/public/3254139.jpg')",
+        'login-bg': "url('https://i.ibb.co/ykQqcgm/re13.jpg')",
+        'banner-bg': "url('https://i.ibb.co/jkWBxY7/2148524753-1.jpg')"
       }
     },
   },

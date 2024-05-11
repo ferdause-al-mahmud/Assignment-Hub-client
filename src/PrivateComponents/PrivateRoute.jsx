@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
     const location = useLocation();
     if (loading) {
         return <div className="w-full h-[80vh] flex items-center justify-center ">
-            <iframe src="https://giphy.com/embed/gJ3mEToTDJn3LT6kCT" width="480" height="480" frameBorder="0" className="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/juggling-load-malabares-gJ3mEToTDJn3LT6kCT">via GIPHY</a></p>
+            <img src="https://i.ibb.co/p34bzth/loading.gif" alt="" />
         </div>;
     }
     if (user) {
