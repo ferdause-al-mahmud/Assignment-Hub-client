@@ -19,7 +19,7 @@ const Feature = () => {
             <p className=" mb-8 text-xl text-center" >Elevate your group study sessions with our platform{"'"}s intuitive assignment creation, progress tracking, adjustable difficulty levels, and rich multimedia support.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
-                    assignments.map(assignment => <AssignmentCard assignment={assignment} key={assignment._id}></AssignmentCard>)
+                    assignments.slice(0, 6).map(assignment => <AssignmentCard assignment={assignment} key={assignment._id}></AssignmentCard>)
                 }
             </div>
 
