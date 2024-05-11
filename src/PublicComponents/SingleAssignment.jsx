@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
 
-const SingleAssignment = ({ assignment }) => {
-    const { _id, title, difficulty_level, thumbnail_url, description, marks, due_date } = assignment;
+import { AiFillDelete } from "react-icons/ai";
+import { GrUpdate, GrView } from "react-icons/gr";
+import { Link } from "react-router-dom";
+
+const SingleAssignment = ({ assignment, handleDelete }) => {
+    const { _id, title, difficulty_level, thumbnail_url, description, marks, due_date, creator_email } = assignment;
     let badgeColorClass = '';
 
     // Determine badge color based on difficulty level
@@ -32,6 +36,11 @@ const SingleAssignment = ({ assignment }) => {
                         <p className="text-blue-600 font-bold">Marks: {marks}</p>
                         <p className="text-purple-700 font-bold">Due :{due_date}</p>
                     </div>
+                    <div className="flex justify-between">
+                        <button className="btn text-white bg-green-500">Update <GrUpdate /></button>
+                        <Link to={`/assignment/${_id}`} className="btn  text-white bg-yellow-700">View Details<GrView /></Link>
+                        <button onClick={() => handleDelete(_id, creator_email)} className="btn text-white bg-red-700">Delete <AiFillDelete /></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,4 +49,4 @@ const SingleAssignment = ({ assignment }) => {
 
 export default SingleAssignment;
 
-// to={`/assignment/${_id}`}
+// 

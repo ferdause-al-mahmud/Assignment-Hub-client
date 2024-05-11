@@ -1,13 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SingleAssignment from "./SingleAssignment";
+import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Assignments = () => {
+    const { user } = useContext(AuthContext);
     const [assignments, setAssignments] = useState([]);
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        axios.get(`http://localhost:4444/assignments`, {
+        axios.get(`http://localhost:4444/allAssignments`, {
             params: { difficulty: filter } // Pass the difficulty as a query parameter
         })
             .then(res => {
@@ -23,6 +26,50 @@ const Assignments = () => {
         setFilter(e.target.value);
         console.log(e.target.value)
     };
+
+    const handleDelete = (id, creator_email) => {
+        if (user.email !== creator_email) {
+            return Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "You are not owner of this assignment",
+            });
+        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:4444/allAssignments/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your coffee has been deleted.",
+                                icon: "success"
+                            });
+                            const remaining = assignments.filter(c => c._id !== id);
+                            setAssignments(remaining);
+                        }
+
+                    })
+            }
+        });
+        console.log("first")
+    }
+
     return (
         <div className="grid grid-cols-1 gap-4 my-12">
             <div className="flex flex-col items-center justify-center mb-4">
@@ -42,7 +89,7 @@ const Assignments = () => {
                 </select>
             </div>
             {
-                assignments.map(assignment => <SingleAssignment assignment={assignment} key={assignment._id}></SingleAssignment>)
+                assignments.map(assignment => <SingleAssignment handleDelete={handleDelete} assignment={assignment} key={assignment._id}></SingleAssignment>)
             }
         </div>
     );

@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import { Link } from "react-router-dom";
 
 const AssignmentCard = ({ assignment }) => {
-    const { _id, title, difficulty_level, thumbnail_url, description, marks, due_date } = assignment;
+    const { title, difficulty_level, thumbnail_url, description, marks, due_date } = assignment;
     let badgeColorClass = '';
 
     // Determine badge color based on difficulty level
@@ -22,7 +21,7 @@ const AssignmentCard = ({ assignment }) => {
     }
     return (
         <div>
-            <Link to={`/assignment/${_id}`} className="card border bg-base-100 shadow-xl h-full">
+            <div className="card border bg-base-100 shadow-xl h-full">
                 <figure><img src={thumbnail_url} /></figure>
                 <div className="card-body">
                     <h2 className="card-title">
@@ -35,7 +34,7 @@ const AssignmentCard = ({ assignment }) => {
                         <p className="text-purple-700 font-bold">Due :{due_date}</p>
                     </div>
                 </div>
-            </Link>
+            </div>
         </div >
     );
 };
