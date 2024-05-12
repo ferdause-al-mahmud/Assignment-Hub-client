@@ -71,7 +71,7 @@ const Assignments = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 gap-4 my-12">
+        <div className="grid grid-cols-1 gap-4 my-12 p-4 lg:p-0">
             <div className="flex flex-col items-center justify-center mb-4">
 
 

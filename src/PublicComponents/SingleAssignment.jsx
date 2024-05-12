@@ -23,10 +23,10 @@ const SingleAssignment = ({ assignment, handleDelete }) => {
             badgeColorClass = 'bg-gray-400'; // Default color if difficulty level is not recognized
     }
     return (
-        <div>
-            <div className="card lg:card-side border max-h-[400px] bg-base-100 shadow-xl">
-                <figure className="w-1/2"><img src={thumbnail_url} alt="Album" /></figure>
-                <div className="w-1/2 card-body space-y-4">
+        <div >
+            <div className="card sm:card-side border sm:max-h-[400px] bg-base-100 shadow-xl">
+                <figure className="sm:w-1/2"><img src={thumbnail_url} alt="Album" /></figure>
+                <div className="sm:w-1/2 card-body space-y-4">
                     <h2 className="card-title">
                         {title}
                         <div className={`badge p-4 text-white ${badgeColorClass}`}>{difficulty_level}</div>
@@ -36,10 +36,10 @@ const SingleAssignment = ({ assignment, handleDelete }) => {
                         <p className="text-blue-600 font-bold">Marks: {marks}</p>
                         <p className="text-purple-700 font-bold">Due :{due_date}</p>
                     </div>
-                    <div className="flex justify-between">
-                        <Link to={`/update/${_id}`} className="btn text-white bg-green-500">Update <GrUpdate /></Link>
-                        <Link to={`/assignment/${_id}`} className="btn  text-white bg-yellow-700">View Details<GrView /></Link>
-                        <button onClick={() => handleDelete(_id, creator_email)} className="btn text-white bg-red-700">Delete <AiFillDelete /></button>
+                    <div className="md:flex justify-between">
+                        <Link to={`/update/${_id}`} className="btn p-2 lg:p-4 text-white bg-green-500">Update <GrUpdate /></Link>
+                        <Link to={`/assignment/${_id}`} className="btn p-2 lg:p-4 text-white bg-yellow-700">View Details<GrView /></Link>
+                        <button onClick={() => handleDelete(_id, creator_email)} className="btn p-2 lg:p-4 text-white bg-red-700">Delete <AiFillDelete /></button>
                     </div>
                 </div>
             </div>
