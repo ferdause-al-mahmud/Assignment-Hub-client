@@ -13,7 +13,7 @@ const AttemptedAssigments = () => {
             .catch(error => {
                 console.error('Error fetching assignment:', error);
             });
-    }, [])
+    }, [user.email])
 
     return (
         <div className="my-12 font-semibold">

@@ -13,6 +13,7 @@ import PrivateRoute from "../PrivateComponents/PrivateRoute";
 import AssignmentDetails from "../PrivateComponents/AssignmentDetails";
 import Update from "../PrivateComponents/Update";
 import AttemptedAssigments from "../PrivateComponents/AttemptedAssigments";
+import MarkingPage from "../PrivateComponents/MarkingPage";
 
 
 export const router = createBrowserRouter([
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
             {
                 path: "/attemptedAssignments",
                 element: <PrivateRoute><AttemptedAssigments></AttemptedAssigments></PrivateRoute>
+            },
+            {
+                path: "/markingAssignment/:id",
+                element: <PrivateRoute><MarkingPage></MarkingPage></PrivateRoute>
             },
 
         ]
