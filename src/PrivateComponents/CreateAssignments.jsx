@@ -26,7 +26,7 @@ const CreateAssignments = () => {
             creator_email: creator_email,
             due_date: due_date
         }
-        fetch('http://localhost:4444/allAssignments', {
+        fetch('https://server-side-eight-topaz.vercel.app/allAssignments', {
             method: "POST",
             headers: {
                 "content-type": "application/json"

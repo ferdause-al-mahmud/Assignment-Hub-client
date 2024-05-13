@@ -12,7 +12,7 @@ const Update = () => {
     console.log(id)
     const [assignment, setAssignment] = useState(null);
     useEffect(() => {
-        axios.get(`http://localhost:4444/allAssignments/${id}`)
+        axios.get(`https://server-side-eight-topaz.vercel.app/allAssignments/${id}`)
             .then(res => {
                 setAssignment(res.data)
                 if (res.data && res.data.due_date) {
@@ -40,7 +40,7 @@ const Update = () => {
             due_date: due_date
         }
 
-        fetch(`http://localhost:4444/allAssignments/${id}`, {
+        fetch(`https://server-side-eight-topaz.vercel.app/allAssignments/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

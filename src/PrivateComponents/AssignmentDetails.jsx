@@ -12,13 +12,16 @@ const AssignmentDetails = () => {
     const [isModalOpen, setIsModalOpen] = useState(false) // State for managing modal open/close
     const [submissionFile, setSubmissionFile] = useState(null);
     const [submissionNote, setSubmissionNote] = useState('');
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        axios.get(`http://localhost:4444/allAssignments/${id}`)
+        axios.get(`https://server-side-eight-topaz.vercel.app/allAssignments/${id}`)
             .then(res => {
                 setAssignment(res.data);
+                setLoading(false)
             })
             .catch(error => {
                 console.error('Error fetching assignment:', error);
+                setLoading(false);
             });
     }, [id]);
 
@@ -62,7 +65,7 @@ const AssignmentDetails = () => {
             due_date: due_date,
             note: submissionNote
         }
-        fetch(`http://localhost:4444/attemptedAssignments`, {
+        fetch(`https://server-side-eight-topaz.vercel.app/attemptedAssignments`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -85,55 +88,67 @@ const AssignmentDetails = () => {
 
 
     return (
-        <div className="p-4 md:p-0">
-            <div className="flex items-center border border-blue-500 my-12 shadow-lg">
-                <div className="p-4 ">
-                    <div className="flex flex-col md:flex-row  gap-8">
-                        <div className="md:w-1/2 space-y-2">
-                            <img src={thumbnail_url} alt="" className="block max-h-[500px] object-cover object-center w-full rounded-md" />
-                        </div>
-                        <div className="md:w-1/2 space-y-6">
-                            <a rel="noopener noreferrer" href="#" className="block">
-                                <h3 className="text-xl md:text-3xl font-semibold text-indigo-600">{title}</h3>
-
-                            </a>
-                            <p className=" md:text-xl font-medium">{description}</p>
-                            <div className=" flex gap-6 md:gap-12">
-                                <p className="text-blue-600 text-xl font-bold">Marks: {marks}</p>
-                                <p className="text-purple-700 text-xl font-bold">Due :{due_date}</p>
-
-                            </div>
-                            <div className={`badge font-semibold md:text-xl p-4 md:p-5  ${badgeColorClass}`}>Difficulty: {difficulty_level}</div>
-                            <div>
-                                <p className="text-xl">Created By : <span className="font-bold">{creator_email}</span></p>
-                            </div>
-                            <div>
-                                <div onClick={() => setIsModalOpen(true)} className="btn btn-secondary md:text-xl">Take assignment</div>
-                            </div>
-                        </div>
-
+        <div>
+            {
+                loading ? ( // Display loading spinner if loading is true
+                    <div className="w-full h-[80vh] flex items-center justify-center ">
+                        <img src="https://i.ibb.co/p34bzth/loading.gif" alt="" />
                     </div>
-                </div>
-            </div>
-            {isModalOpen && (
-                <div className="fixed top-0 left-0 w-full h-full flex items-center z-10 justify-center bg-gray-800 bg-opacity-75">
-                    <div className="bg-base-100 p-8 rounded-lg">
-                        <h2 className="text-2xl font-semibold mb-4">Assignment Submission</h2>
-                        <div className="mb-4">
-                            <label htmlFor="submissionFile" className="block mb-2">PDF/doc File Link:</label>
-                            <input type="text" id="submissionFile" onChange={(e) => setSubmissionFile(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                ) :
+                    <>
+
+                        <div className="p-4 md:p-0">
+                            <div className="flex items-center border border-blue-500 my-12 shadow-lg">
+                                <div className="p-4 ">
+                                    <div className="flex flex-col md:flex-row  gap-8">
+                                        <div className="md:w-1/2 space-y-2">
+                                            <img src={thumbnail_url} alt="" className="block max-h-[500px] object-cover object-center w-full rounded-md" />
+                                        </div>
+                                        <div className="md:w-1/2 space-y-6">
+                                            <a rel="noopener noreferrer" href="#" className="block">
+                                                <h3 className="text-xl md:text-3xl font-semibold text-indigo-600">{title}</h3>
+
+                                            </a>
+                                            <p className=" md:text-xl font-medium">{description}</p>
+                                            <div className=" flex gap-6 md:gap-12">
+                                                <p className="text-blue-600 text-xl font-bold">Marks: {marks}</p>
+                                                <p className="text-purple-700 text-xl font-bold">Due :{due_date}</p>
+
+                                            </div>
+                                            <div className={`badge font-semibold md:text-xl p-4 md:p-5  ${badgeColorClass}`}>Difficulty: {difficulty_level}</div>
+                                            <div>
+                                                <p className="text-xl">Created By : <span className="font-bold">{creator_email}</span></p>
+                                            </div>
+                                            <div>
+                                                <div onClick={() => setIsModalOpen(true)} className="btn btn-secondary md:text-xl">Take assignment</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {isModalOpen && (
+                                <div className="fixed top-0 left-0 w-full h-full flex items-center z-10 justify-center bg-gray-800 bg-opacity-75">
+                                    <div className="bg-base-100 p-8 rounded-lg">
+                                        <h2 className="text-2xl font-semibold mb-4">Assignment Submission</h2>
+                                        <div className="mb-4">
+                                            <label htmlFor="submissionFile" className="block mb-2">PDF/doc File Link:</label>
+                                            <input type="text" id="submissionFile" onChange={(e) => setSubmissionFile(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label htmlFor="submissionNote" className="block mb-2">Quick Note:</label>
+                                            <textarea id="submissionNote" value={submissionNote} onChange={(e) => setSubmissionNote(e.target.value)} rows="4" className="w-full px-4 py-2  resize-none border border-gray-300 rounded-md"></textarea>
+                                        </div>
+                                        <div className="text-right">
+                                            <button className="btn btn-primary" onClick={handleSubmission}>Submit</button>
+                                            <button className="btn btn-secondary ml-2" onClick={() => setIsModalOpen(false)}>Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        <div className="mb-4">
-                            <label htmlFor="submissionNote" className="block mb-2">Quick Note:</label>
-                            <textarea id="submissionNote" value={submissionNote} onChange={(e) => setSubmissionNote(e.target.value)} rows="4" className="w-full px-4 py-2  resize-none border border-gray-300 rounded-md"></textarea>
-                        </div>
-                        <div className="text-right">
-                            <button className="btn btn-primary" onClick={handleSubmission}>Submit</button>
-                            <button className="btn btn-secondary ml-2" onClick={() => setIsModalOpen(false)}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+
+                    </>}
         </div>
     );
 };

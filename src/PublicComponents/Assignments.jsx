@@ -8,16 +8,21 @@ const Assignments = () => {
     const { user } = useContext(AuthContext);
     const [assignments, setAssignments] = useState([]);
     const [filter, setFilter] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`http://localhost:4444/allAssignments`, {
+        axios.get(`https://server-side-eight-topaz.vercel.app/allAssignments`, {
             params: { difficulty: filter } // Pass the difficulty as a query parameter
         })
             .then(res => {
                 setAssignments(res.data);
+                setLoading(false);
+
             })
             .catch(error => {
                 console.error('Error fetching assignments:', error);
+                setLoading(false);
+
             });
     }, [filter]);
 
@@ -47,7 +52,7 @@ const Assignments = () => {
 
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:4444/allAssignments/${id}`, {
+                fetch(`https://server-side-eight-topaz.vercel.app/allAssignments/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -71,27 +76,38 @@ const Assignments = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 gap-4 my-12 p-4 lg:p-0">
-            <div className="flex flex-col items-center justify-center mb-4">
+        <div>
+            {loading ? ( // Display loading spinner if loading is true
+                <div className="flex justify-center items-center h-[50vh]">
+                    <div className="loading loading-spinner loading-lg"></div>
+                </div>
+            ) : <>
+                <div className="grid grid-cols-1 gap-4 my-12 p-4 lg:p-0">
+
+                    <div className="flex flex-col items-center justify-center mb-4">
 
 
-                <label className="text-2xl mb-2 font-bold">Filter by difficulty</label>
-                <select
-                    id="difficulty"
-                    value={filter}
-                    onChange={handleFilterChange}
-                    className="p-4 bg-[#32b6e6] rounded-md"
-                >
-                    <option value="">All</option>
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                </select>
-            </div>
-            {
-                assignments.map(assignment => <SingleAssignment handleDelete={handleDelete} assignment={assignment} key={assignment._id}></SingleAssignment>)
+                        <label className="text-2xl mb-2 font-bold">Filter by difficulty</label>
+                        <select
+                            id="difficulty"
+                            value={filter}
+                            onChange={handleFilterChange}
+                            className="p-4 bg-[#32b6e6] rounded-md"
+                        >
+                            <option value="">All</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    {
+                        assignments.map(assignment => <SingleAssignment handleDelete={handleDelete} assignment={assignment} key={assignment._id}></SingleAssignment>)
+                    }
+                </div>
+            </>
             }
         </div>
+
     );
 };
 
