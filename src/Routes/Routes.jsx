@@ -14,12 +14,14 @@ import AssignmentDetails from "../PrivateComponents/AssignmentDetails";
 import Update from "../PrivateComponents/Update";
 import AttemptedAssigments from "../PrivateComponents/AttemptedAssigments";
 import MarkingPage from "../PrivateComponents/MarkingPage";
+import ErrorPage from "../PublicComponents/ErrorPage";
 
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout></MainLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: "/",

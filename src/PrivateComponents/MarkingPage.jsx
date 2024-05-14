@@ -10,7 +10,9 @@ const MarkingPage = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(`https://server-side-eight-topaz.vercel.app/pendingAssignments/${id}`)
+        axios.get(`https://server-side-eight-topaz.vercel.app/pendingAssignments/${id}`, {
+            withCredentials: true
+        })
             .then(res => {
                 setAssignmentData(res.data);
                 setLoading(false)

@@ -4,6 +4,7 @@ import { createContext, useEffect, useState } from "react";
 import { auth } from "../Firebase/firebase.config";
 import { GoogleAuthProvider } from "firebase/auth";
 import { GithubAuthProvider } from "firebase/auth";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 
@@ -45,8 +46,23 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+            const userEmail = currentUser?.email || user?.email;
+
+            const loggedUser = { email: userEmail }
             setUser(currentUser)
             setLoading(false)
+            if (currentUser) {
+                axios.post('https://server-side-eight-topaz.vercel.app/jwt', loggedUser, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                    })
+            } else {
+                axios.post('https://server-side-eight-topaz.vercel.app/logout', loggedUser, { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                    })
+            }
+
         });
         return () => {
             unSubscribe();

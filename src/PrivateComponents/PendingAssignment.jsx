@@ -8,6 +8,7 @@ const PendingAssignment = () => {
 
     useEffect(() => {
         axios.get(`https://server-side-eight-topaz.vercel.app/pendingAssignments`, {
+            withCredentials: true,
             params: { status: 'pending' }
         })
             .then(res => {

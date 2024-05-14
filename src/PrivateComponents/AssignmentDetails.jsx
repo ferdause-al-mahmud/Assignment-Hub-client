@@ -14,7 +14,7 @@ const AssignmentDetails = () => {
     const [submissionNote, setSubmissionNote] = useState('');
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        axios.get(`https://server-side-eight-topaz.vercel.app/allAssignments/${id}`)
+        axios.get(`https://server-side-eight-topaz.vercel.app/allAssignments/${id}`, { withCredentials: true })
             .then(res => {
                 setAssignment(res.data);
                 setLoading(false)
@@ -26,11 +26,7 @@ const AssignmentDetails = () => {
     }, [id]);
 
 
-    if (!assignment) {
-        return '';
-    }
-
-    const { title, difficulty_level, thumbnail_url, description, marks, due_date, creator_email } = assignment;
+    const { title, difficulty_level, thumbnail_url, description, marks, due_date, creator_email } = assignment || {};
     let badgeColorClass = '';
 
     switch (difficulty_level) {
@@ -129,21 +125,21 @@ const AssignmentDetails = () => {
                             </div>
                             {isModalOpen && (
                                 <div className="fixed top-0 left-0 w-full h-full flex items-center z-10 justify-center bg-gray-800 bg-opacity-75">
-                                    <div className="bg-base-100 p-8 rounded-lg">
+                                    <form onSubmit={handleSubmission} className="bg-base-100 p-8 rounded-lg">
                                         <h2 className="text-2xl font-semibold mb-4">Assignment Submission</h2>
                                         <div className="mb-4">
                                             <label htmlFor="submissionFile" className="block mb-2">PDF/doc File Link:</label>
-                                            <input type="text" id="submissionFile" onChange={(e) => setSubmissionFile(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                                            <input required type="text" id="submissionFile" onChange={(e) => setSubmissionFile(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
                                         </div>
                                         <div className="mb-4">
                                             <label htmlFor="submissionNote" className="block mb-2">Quick Note:</label>
-                                            <textarea id="submissionNote" value={submissionNote} onChange={(e) => setSubmissionNote(e.target.value)} rows="4" className="w-full px-4 py-2  resize-none border border-gray-300 rounded-md"></textarea>
+                                            <textarea required id="submissionNote" value={submissionNote} onChange={(e) => setSubmissionNote(e.target.value)} rows="4" className="w-full px-4 py-2  resize-none border border-gray-300 rounded-md"></textarea>
                                         </div>
                                         <div className="text-right">
-                                            <button className="btn btn-primary" onClick={handleSubmission}>Submit</button>
+                                            <button type="submit" className="btn btn-primary" >Submit</button>
                                             <button className="btn btn-secondary ml-2" onClick={() => setIsModalOpen(false)}>Cancel</button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             )}
                         </div>

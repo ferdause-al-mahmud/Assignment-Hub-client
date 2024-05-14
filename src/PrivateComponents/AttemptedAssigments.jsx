@@ -7,8 +7,9 @@ const AttemptedAssigments = () => {
     const [assignments, setAssignments] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [selectedAssignment, setSelectedAssignment] = useState(null);
     useEffect(() => {
-        axios.get(`https://server-side-eight-topaz.vercel.app/attemptedAssignments/${user.email}`)
+        axios.get(`https://server-side-eight-topaz.vercel.app/attemptedAssignments/${user.email}`, { withCredentials: true })
             .then(res => {
                 setAssignments(res.data);
                 setLoading(false)
@@ -18,7 +19,10 @@ const AttemptedAssigments = () => {
                 setLoading(false)
             });
     }, [user.email])
-
+    const openPreviewModal = (assignment) => {
+        setSelectedAssignment(assignment);
+        document.getElementById('my_modal_2').showModal();
+    };
     return (
         <div>
             {loading ? ( // Display loading spinner if loading is true
@@ -39,6 +43,7 @@ const AttemptedAssigments = () => {
                                     <th className="text-xl">Total marks</th>
                                     <th className="text-xl">Obtained marks</th>
                                     <th className="text-xl">Feedback</th>
+                                    <th className="text-xl">Preview</th>
                                 </tr>
                             </thead>
                             <tbody className="text-[14px]">
@@ -50,6 +55,9 @@ const AttemptedAssigments = () => {
                                         <td>{assignment.marks}</td>
                                         <td>{assignment?.obtained_mark ? assignment?.obtained_mark : 'null'}</td>
                                         <td>{assignment?.feedback ? assignment?.feedback : 'null'}</td>
+                                        <td>
+                                            <button onClick={() => openPreviewModal(assignment)} className="btn btn-primary">Preview</button>
+                                        </td>
                                     </tr>)
                                 }
                             </tbody>
@@ -57,6 +65,20 @@ const AttemptedAssigments = () => {
                     </div>
                 </div>
             </>}
+            <dialog id="my_modal_2" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">PDF Preview</h3>
+                    <p className="py-4">Press ESC key or click outside to close</p>
+                    {selectedAssignment && selectedAssignment.file ? (
+                        <iframe src={selectedAssignment.file} width="100%" height="600" title="PDF Preview"></iframe>
+                    ) : (
+                        <p className="text-red-500">PDF is not available for preview.</p>
+                    )}
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button onClick={() => document.getElementById('my_modal_2').close()}>close</button>
+                </form>
+            </dialog>
         </div>
 
 
