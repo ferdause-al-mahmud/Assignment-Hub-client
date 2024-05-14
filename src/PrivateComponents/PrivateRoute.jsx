@@ -9,8 +9,8 @@ const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     const location = useLocation();
     if (loading) {
-        return <div className="w-full h-[80vh] flex items-center justify-center ">
-            <img src="https://i.ibb.co/p34bzth/loading.gif" alt="" />
+        return <div className="flex justify-center items-center h-[60vh]">
+            <div className="loading loading-spinner loading-lg"></div>
         </div>;
     }
     if (user) {

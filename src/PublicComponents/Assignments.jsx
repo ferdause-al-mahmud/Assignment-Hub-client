@@ -29,7 +29,8 @@ const Assignments = () => {
 
     const handleFilterChange = (e) => {
         setFilter(e.target.value);
-        console.log(e.target.value)
+        console.log(e.target.value);
+        setLoading(true)
     };
 
     const handleDelete = (id, creator_email) => {
@@ -78,7 +79,7 @@ const Assignments = () => {
     return (
         <div>
             {loading ? ( // Display loading spinner if loading is true
-                <div className="flex justify-center items-center h-[50vh]">
+                <div className="flex justify-center items-center h-[60vh]">
                     <div className="loading loading-spinner loading-lg"></div>
                 </div>
             ) : <>
@@ -100,8 +101,15 @@ const Assignments = () => {
                             <option value="hard">Hard</option>
                         </select>
                     </div>
+
                     {
-                        assignments.map(assignment => <SingleAssignment handleDelete={handleDelete} assignment={assignment} key={assignment._id}></SingleAssignment>)
+                        assignments.length > 0 ?
+                            assignments.map(assignment => <SingleAssignment handleDelete={handleDelete} assignment={assignment} key={assignment._id}></SingleAssignment>) :
+                            <>
+                                <div className="flex items-center justify-center h-[50vh]">
+                                    <h1 className="text-5xl font-semibold">There is no data of this specific difficulty</h1>
+                                </div>
+                            </>
                     }
                 </div>
             </>

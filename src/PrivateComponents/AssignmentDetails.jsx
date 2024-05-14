@@ -87,8 +87,8 @@ const AssignmentDetails = () => {
         <div>
             {
                 loading ? ( // Display loading spinner if loading is true
-                    <div className="w-full h-[80vh] flex items-center justify-center ">
-                        <img src="https://i.ibb.co/p34bzth/loading.gif" alt="" />
+                    <div className="flex justify-center items-center h-[60vh]">
+                        <div className="loading loading-spinner loading-lg"></div>
                     </div>
                 ) :
                     <>
