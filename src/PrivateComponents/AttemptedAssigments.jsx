@@ -19,9 +19,12 @@ const AttemptedAssigments = () => {
                 setLoading(false)
             });
     }, [user.email])
-    const openPreviewModal = (assignment) => {
-        setSelectedAssignment(assignment);
-        document.getElementById('my_modal_2').showModal();
+    const openPreviewInNewTab = (assignment) => {
+        if (assignment && assignment.file) {
+            window.open(assignment.file, '_blank');
+        } else {
+            alert('PDF is not available for preview.');
+        }
     };
     return (
         <div>
@@ -56,7 +59,7 @@ const AttemptedAssigments = () => {
                                         <td>{assignment?.obtained_mark ? assignment?.obtained_mark : 'null'}</td>
                                         <td>{assignment?.feedback ? assignment?.feedback : 'null'}</td>
                                         <td>
-                                            <button onClick={() => openPreviewModal(assignment)} className="btn btn-primary">Preview</button>
+                                            <button onClick={() => openPreviewInNewTab(assignment)} className="btn btn-primary">Preview</button>
                                         </td>
                                     </tr>)
                                 }
