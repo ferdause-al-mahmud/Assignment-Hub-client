@@ -16,7 +16,7 @@ const AssignmentDetails = () => {
     const [submissionNote, setSubmissionNote] = useState('');
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        axios.get(`https://server-side-eight-topaz.vercel.app/allAssignments/${id}`, { withCredentials: true })
+        axios.get(`https://server-side-eight-topaz.vercel.app/allAssignments/${id}`)
             .then(res => {
                 setAssignment(res.data);
                 setLoading(false)
