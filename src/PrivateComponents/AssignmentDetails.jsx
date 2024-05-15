@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const AssignmentDetails = () => {
+    const navigate = useNavigate();
+
     const { user } = useContext(AuthContext);
     const { id } = useParams();
     const [assignment, setAssignment] = useState();
@@ -77,7 +79,7 @@ const AssignmentDetails = () => {
                     text: "Submitted!",
                     icon: "success"
                 });
-
+                navigate('/attemptedAssignments')
             })
     };
 

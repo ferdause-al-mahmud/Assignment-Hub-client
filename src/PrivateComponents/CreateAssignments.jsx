@@ -3,10 +3,13 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CreateAssignments = () => {
     const [startDate, setStartDate] = useState(new Date());
     const { user } = useContext(AuthContext)
+    const navigate = useNavigate();
+
     const handleCreate = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -41,8 +44,8 @@ const CreateAssignments = () => {
                     text: "Added!",
                     icon: "success"
                 });
+                navigate('/assignments')
             })
-        console.log(createdAssignment)
     }
     return (
         <div>

@@ -12,7 +12,11 @@ const Navbar = () => {
         {
             user ? <>
                 <li><NavLink to='/create'>Create Assignments</NavLink></li>
-                <li><NavLink to='/pending'>Pending Assignments</NavLink></li></> : ''
+                <li><NavLink to='/pending'>Pending Assignments</NavLink></li></> : <>
+                <li><NavLink to='/login'>Login</NavLink></li>
+                <li><NavLink to='/register'>Register</NavLink></li>
+
+            </>
         }
 
     </>
@@ -71,13 +75,7 @@ const Navbar = () => {
                                 <li><Link to='/attemptedAssignments' >Attempted Assignments</Link></li>
                                 <li><a onClick={handleLogOut}>Logout</a></li>
                             </ul>
-                        </div> : <>
-                            <ul className="menu menu-horizontal px-1 gap-2 md:text-[16px]">
-                                <li><NavLink to='/login'>Login</NavLink></li>
-                                <li><NavLink to='/register'>Register</NavLink></li>
-                            </ul>
-
-                        </>
+                        </div> : ''
                     }
                 </div>
             </div>
