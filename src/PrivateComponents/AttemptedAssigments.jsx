@@ -6,8 +6,6 @@ const AttemptedAssigments = () => {
     const { user } = useContext(AuthContext);
     const [assignments, setAssignments] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    const [selectedAssignment, setSelectedAssignment] = useState(null);
     useEffect(() => {
         axios.get(`https://server-side-eight-topaz.vercel.app/attemptedAssignments/${user.email}`, { withCredentials: true })
             .then(res => {
@@ -68,23 +66,7 @@ const AttemptedAssigments = () => {
                     </div>
                 </div>
             </>}
-            <dialog id="my_modal_2" className="modal">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">PDF Preview</h3>
-                    <p className="py-4">Press ESC key or click outside to close</p>
-                    {selectedAssignment && selectedAssignment.file ? (
-                        <iframe src={selectedAssignment.file} width="100%" height="600" title="PDF Preview"></iframe>
-                    ) : (
-                        <p className="text-red-500">PDF is not available for preview.</p>
-                    )}
-                </div>
-                <form method="dialog" className="modal-backdrop">
-                    <button onClick={() => document.getElementById('my_modal_2').close()}>close</button>
-                </form>
-            </dialog>
         </div>
-
-
     );
 };
 
