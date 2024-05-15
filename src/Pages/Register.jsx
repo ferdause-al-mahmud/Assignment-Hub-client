@@ -10,6 +10,7 @@ const Register = () => {
     const { createUser, logOut } = useContext(AuthContext);
     const [eye, setEye] = useState(false);
     const navigate = useNavigate();
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])/;
 
 
     const handleEye = () => {
@@ -22,6 +23,9 @@ const Register = () => {
         const password = form.get("password");
         const name = form.get("name");
         const url = form.get("photourl");
+        if (!passwordRegex.test(password)) {
+            return (toast.error("Password must have at least an uppercase and an lowercase letter"));
+        }
         if (password.length < 6) {
             return (toast.error("Password Length must be at least 6 character"));
         }
