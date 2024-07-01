@@ -1,6 +1,7 @@
 ### Study Buddy
 
 Live Site URL: [Study Buddy](https://assignment-hub-e4e39.web.app)
+Server side: (https://github.com/ferdause-al-mahmud/Assignment-Hub-server)
 
 #### Description
 
