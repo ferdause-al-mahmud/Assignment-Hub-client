@@ -24,3 +24,22 @@ assignment_category_0001
 
 - This project was developed as part of an assignment submission for the specified category.
 - For any inquiries or issues, please contact the project maintainer.
+
+## Getting Started
+
+To run this project on your local device, follow these steps:
+
+### Prerequisites
+
+Ensure you have the following installed on your device:
+
+- [Node.js](https://nodejs.org/) (v14.x or later)
+- [npm](https://www.npmjs.com/) (v6.x or later)
+- [Git](https://git-scm.com/)
+
+### Installation
+
+1. **Clone the Repository**
+2. **npm install**
+3. **Create a .env file in the root of the project and add the necessary environment variables for firebase**
+4. **npm run dev**
